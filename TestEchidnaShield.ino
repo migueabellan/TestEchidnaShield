@@ -1,4 +1,4 @@
-const int MAX_SENS = 10;
+const int MAX_SENS = 14;
 String result[MAX_SENS];
 int index = 0;
 
