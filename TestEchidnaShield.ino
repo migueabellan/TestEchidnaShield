@@ -5,7 +5,7 @@ int index = 0;
 void setup() {
   Serial.begin(9600);
 
-  //printInit();
+  printInit();
   
   // LEDS
   testLed(6, "RGB BD6 (Azul)");
