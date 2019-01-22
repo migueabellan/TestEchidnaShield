@@ -21,6 +21,12 @@ void setup() {
   testJoystick(1, 1, "Joystick A1 (Arriba)");
   testJoystick(1, 0, "Joystick A1 (Abajo)");
 
+  // Acelerometro
+  testAceler(2, 0, "Acelerómetro A2X (Izquierda)");
+  testAceler(2, 1, "Acelerómetro A2X (Derecha)");
+  testAceler(3, 1, "Acelerómetro A3Y (Adelante)");
+  testAceler(3, 0, "Acelerómetro A3Y (Atrás)");
+
   printResult();
 }
 
@@ -42,10 +48,10 @@ void testJoystick(int pin, int op, String text) {
   bool isTimeout = false;
   
   Serial.println("Mueve " + text);
-
+  
   switch(op) {
     case 0:
-      while(analogRead(pin) > 256) { 
+      while(analogRead(pin) > 240) { 
         if(millis() - time > timeout) {
           saveResult(false, text);
           isTimeout = true;
@@ -54,7 +60,7 @@ void testJoystick(int pin, int op, String text) {
       }
       break;
     case 1:
-      while(analogRead(pin) < 768) {
+      while(analogRead(pin) < 400) {
         if(millis() - time > timeout) {
           saveResult(false, text);
           isTimeout = true;
@@ -67,6 +73,39 @@ void testJoystick(int pin, int op, String text) {
   if(!isTimeout) saveResult(true, text);
 }
 
+
+void testAceler(int pin, int op, String text) {
+  unsigned long time = millis();
+  int timeout = 5000;
+  bool isTimeout = false;
+
+  Serial.println("Apoya la placa sobre la mesa ... ");
+  delay(1000);
+  Serial.println("Mueve " + text);
+
+  switch(op) {
+    case 0:
+      while(analogRead(pin) > 300) { 
+        if(millis() - time > timeout) {
+          saveResult(false, text);
+          isTimeout = true;
+          break;
+        }  
+      }
+      break;
+    case 1:
+      while(analogRead(pin) < 500) {
+        if(millis() - time > timeout) {
+          saveResult(false, text);
+          isTimeout = true;
+          break;
+        }
+      }
+      break;
+  }
+
+  if(!isTimeout) saveResult(true, text);
+}
 
 
 bool isCorrect() {
