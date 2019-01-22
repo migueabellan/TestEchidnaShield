@@ -1,4 +1,4 @@
-const int MAX_SENS = 6;
+const int MAX_SENS = 10;
 String result[MAX_SENS];
 int index = 0;
 
@@ -15,6 +15,12 @@ void setup() {
   testLed(12, "LED D12 (Naranja)");
   testLed(11, "LED D11 (Verde)");
 
+  // Joystick
+  testJoystick(0, 0, "Joystick A0 (Izquierda)");
+  testJoystick(0, 1, "Joystick A0 (Derecha)");
+  testJoystick(1, 1, "Joystick A1 (Arriba)");
+  testJoystick(1, 0, "Joystick A1 (Abajo)");
+
   printResult();
 }
 
@@ -28,6 +34,37 @@ void testLed(int pin, String text) {
   analogWrite(pin, 255);
   saveResult(isCorrect(), text);
   analogWrite(pin, 0);
+}
+
+void testJoystick(int pin, int op, String text) {
+  unsigned long time = millis();
+  int timeout = 5000;
+  bool isTimeout = false;
+  
+  Serial.println("Mueve " + text);
+
+  switch(op) {
+    case 0:
+      while(analogRead(pin) > 256) { 
+        if(millis() - time > timeout) {
+          saveResult(false, text);
+          isTimeout = true;
+          break;
+        }  
+      }
+      break;
+    case 1:
+      while(analogRead(pin) < 768) {
+        if(millis() - time > timeout) {
+          saveResult(false, text);
+          isTimeout = true;
+          break;
+        }
+      }
+      break;
+  }
+
+  if(!isTimeout) saveResult(true, text);
 }
 
 
@@ -49,6 +86,8 @@ bool isCorrect() {
   if(ko) return false;
 }
 
+
+
 void saveResult(bool op, String text) {
   String aux = op ? "✓" : "✗";
   aux+= " -> ";
@@ -58,8 +97,6 @@ void saveResult(bool op, String text) {
   printSpace();
   delay(1000);
 }
-
-
 
 void printInit() {
   Serial.println("---------------------------------------------------");
