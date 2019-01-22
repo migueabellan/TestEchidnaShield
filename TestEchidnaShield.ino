@@ -1,4 +1,4 @@
-const int MAX_SENS = 14;
+const int MAX_SENS = 15;
 String result[MAX_SENS];
 int index = 0;
 
@@ -14,6 +14,9 @@ void setup() {
   testLed(13, "LED D13 (Rojo)");
   testLed(12, "LED D12 (Naranja)");
   testLed(11, "LED D11 (Verde)");
+
+  // Buzzer
+  testBuzzer(10, "Buzzer D10");
 
   // Joystick
   testJoystick(0, 0, "Joystick A0 (Izquierda)");
@@ -40,6 +43,16 @@ void testLed(int pin, String text) {
   analogWrite(pin, 255);
   saveResult(isCorrect(), text);
   analogWrite(pin, 0);
+}
+
+void testBuzzer(int pin, String text) {
+  Serial.println("¿Ha sonado el " + text + "?");
+
+  for(int i=1; i<10; i++) {
+    tone(pin, 1000*i, 100);
+    delay(200);
+  }
+  saveResult(isCorrect(), text);
 }
 
 void testJoystick(int pin, int op, String text) {
