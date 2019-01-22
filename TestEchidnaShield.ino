@@ -1,4 +1,4 @@
-const int MAX_SENS = 15;
+const int MAX_SENS = 16;
 String result[MAX_SENS];
 int index = 0;
 
@@ -17,6 +17,9 @@ void setup() {
 
   // Buzzer
   testBuzzer(10, "Buzzer D10");
+
+  // LDR
+  testLdr(5, "LDR A5");
 
   // Joystick
   testJoystick(0, 0, "Joystick A0 (Izquierda)");
@@ -53,6 +56,25 @@ void testBuzzer(int pin, String text) {
     delay(200);
   }
   saveResult(isCorrect(), text);
+}
+
+void testLdr(int pin, String text) {
+  unsigned long time = millis();
+  int timeout = 5000;
+  bool isTimeout = false;
+  
+  Serial.println("Tapa el " + text);
+
+
+  while(analogRead(pin) > 200) { 
+    if(millis() - time > timeout) {
+      saveResult(false, text);
+      isTimeout = true;
+      break;
+    }  
+  }
+  
+  if(!isTimeout) saveResult(true, text);
 }
 
 void testJoystick(int pin, int op, String text) {
