@@ -1,4 +1,4 @@
-const int MAX_SENS = 16;
+const int MAX_SENS = 19;
 String result[MAX_SENS];
 int index = 0;
 
@@ -6,7 +6,12 @@ void setup() {
   Serial.begin(9600);
 
   printInit();
-  
+
+  // Buttons
+  testButton(2, "SR D2");
+  testButton(3, "SL D3");
+  testButton(2, "Joystick SJ D2");
+
   // LEDS
   testLed(6, "RGB BD6 (Azul)");
   testLed(5, "RGB GD5 (Verde)");
@@ -39,6 +44,25 @@ void setup() {
 void loop() {
 }
 
+
+void testButton(int pin, String text) {
+  unsigned long time = millis();
+  int timeout = 5000;
+  bool isTimeout = false;
+  
+  Serial.println("Pulsa el botón " + text);
+
+
+  while(digitalRead(pin) == LOW) { 
+    if(millis() - time > timeout) {
+      saveResult(false, text);
+      isTimeout = true;
+      break;
+    }  
+  }
+  
+  if(!isTimeout) saveResult(true, text);
+}
 
 void testLed(int pin, String text) {
   Serial.println("¿Está encendido el " + text + "?");
