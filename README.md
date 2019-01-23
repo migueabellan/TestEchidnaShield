@@ -2,6 +2,8 @@
 
 > Programa realizado para comprobar los sensores de la EchidnaShield
 
+Puedes acceder al videotutorial donde se explica paso a paso como cargar el programa de Test sobre la placa de Arduino.
+
 [![Tutorial en YouTube](https://img.youtube.com/vi/DzT4yJkJto0/0.jpg)](https://www.youtube.com/watch?v=DzT4yJkJto0)
 
 ## Requisitos
