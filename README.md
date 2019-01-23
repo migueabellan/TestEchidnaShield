@@ -2,7 +2,7 @@
 
 > Programa realizado para comprobar los sensores de la EchidnaShield
 
-Accede al [Tutorial en YouTube][YouTube]
+[![Tutorial en YouTube](https://img.youtube.com/vi/DzT4yJkJto0/0.jpg)](https://www.youtube.com/watch?v=DzT4yJkJto0)
 
 ## Requisitos
 
@@ -19,5 +19,4 @@ Descarga e instala el software [Arduino IDE][1] desde la propia web
 - Abre el monitor de *Arduino IDE* dentro de ```Herramientas > Serial Monitor``` y sigue los pasos de test. Para repetir el test, puedes presionar el botón de **reset** de tu placa EchidnaShield
 
 
-[YouTube]: https://www.youtube.com/watch?v=DzT4yJkJto0
 [1]: https://www.arduino.cc/en/Main/Software
