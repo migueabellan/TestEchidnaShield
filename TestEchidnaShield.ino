@@ -1,3 +1,12 @@
+/**
+* Test EchidnaShield - Arduino UNO
+*
+* Proyecto Educativo "El Cable Amarillo"
+* http://www.elcableamarillo.cc
+*
+* Author: Miguel Ángel Abellán
+*/
+
 const int MAX_SENS = 27;
 String result[MAX_SENS];
 int index = 0;
